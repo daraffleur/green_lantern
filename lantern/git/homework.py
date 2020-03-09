@@ -18,7 +18,6 @@ def is_two_object_has_same_value(first: Any, second: Any) -> bool:
     return first == second
 
 
-
 def is_two_objects_has_same_type(first: Any, second: Any) -> bool:
     """
     If @first and @second has same type should return True
@@ -49,11 +48,12 @@ def multiple_ints(first_value: int, second_value: int) -> int:
     Returns:
         Product of elements
     """
-    try:
-        return int(first_value) * int(second_value)
-    except TypeError:
-        return 'Please, enter the int value!'
 
+    for i in [first_value, second_value]:
+        if isinstance(i, int):
+            return first_value * second_value
+        else:
+            raise TypeError
 
 
 def multiple_ints_with_conversion(first_value: Any, second_value: Any) -> int:
@@ -84,12 +84,11 @@ def multiple_ints_with_conversion(first_value: Any, second_value: Any) -> int:
         >>> "Not valid input data"
     """
     try:
-        if first_value and second_value == isinstance(int):
-            return first_value * second_value
-    except ValueError:
-        return "Not valid input data"
-
-
+        first = int(first_value)
+        second = int(second_value)
+        return first * second
+    except TypeError or ValueError:
+        raise ValueError
 
 
 def is_word_in_text(word: str, text: str) -> bool:
@@ -134,7 +133,6 @@ def remove_from_list_all_negative_numbers(data: List[int]) -> list:
     return positive_number
 
 
-
 def alphabet() -> dict:
     """
     Create dict which keys are alphabetic characters. And values their number in alphabet
@@ -143,9 +141,8 @@ def alphabet() -> dict:
         alphabet()
         >>> {"a": 1, "b": 2 ...}
     """
-    from string import ascii_lowercase
-    return [letters for letters in range(('a'),('z') + 1)]
-
+    import string
+    return dict(zip(range(1, 27), string.ascii_lowercase))
 
 
 def simple_sort(data: List[int]) -> List[list]:
@@ -155,11 +152,11 @@ def simple_sort(data: List[int]) -> List[list]:
         simple_sort([2, 9, 6, 7, 3, 2, 1])
         >>> [1, 2, 2, 3, 6, 7, 9]
     """
+    data_list = data[:]
     sorted_list = []
-    number = min(data)
-    while number:
+    while data_list:
+        number = min(data_list)
         sorted_list.append(number)
-        data.remove(number)
+        data_list.remove(number)
 
     return sorted_list
-
