@@ -87,7 +87,7 @@ def multiple_ints_with_conversion(first_value: Any, second_value: Any) -> int:
     try:
         first, second = int(first_value), int(second_value)
         return first * second
-    except TypeError or ValueError:
+    except (TypeError or ValueError):
         raise ValueError
 
 
