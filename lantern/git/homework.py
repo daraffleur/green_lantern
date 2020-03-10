@@ -48,12 +48,12 @@ def multiple_ints(first_value: int, second_value: int) -> int:
     Returns:
         Product of elements
     """
-
-    for i in [first_value, second_value]:
-        if isinstance(i, int):
-            return first_value * second_value
-        else:
-            raise TypeError
+    if all(isinstance(value, int) for value in [first_value, second_value]):
+        return first_value * second_value
+    elif all(isinstance(value, bool) for value in [first_value, second_value]):
+        raise TypeError
+    else:
+        raise TypeError
 
 
 def multiple_ints_with_conversion(first_value: Any, second_value: Any) -> int:
@@ -84,8 +84,7 @@ def multiple_ints_with_conversion(first_value: Any, second_value: Any) -> int:
         >>> "Not valid input data"
     """
     try:
-        first = int(first_value)
-        second = int(second_value)
+        first, second = int(first_value), int(second_value)
         return first * second
     except TypeError or ValueError:
         raise ValueError
@@ -115,8 +114,8 @@ def some_loop_exercise() -> list:
     """
     Use loop to create list that contain int values from 0 to 12 except 6 and 7
     """
-    numbers_list = [number for number in range(13) if number != 6 if number != 7]
-    return numbers_list
+    return [number for number in range(13) if number != 6 if number != 7]
+
 
 
 
@@ -129,9 +128,7 @@ def remove_from_list_all_negative_numbers(data: List[int]) -> list:
         remove_from_list_all_negative_numbers([1, 5, -7, 8, -1])
         >>> [1, 5, 8]
     """
-    positive_number = [number for number in data if number > 0]
-    return positive_number
-
+    return [number for number in data if number > 0]
 
 def alphabet() -> dict:
     """
