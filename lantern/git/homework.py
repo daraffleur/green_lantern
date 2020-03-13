@@ -48,13 +48,9 @@ def multiple_ints(first_value: int, second_value: int) -> int:
     Returns:
         Product of elements
     """
-
-    if all(isinstance(value, bool) for value in [first_value, second_value]):
+    if not isinstance(first_value, int) or not isinstance(second_value, int):
         raise TypeError
-    elif all(isinstance(value, int) for value in [first_value, second_value]):
-        return first_value * second_value
-    else:
-        raise TypeError
+    return first_value * second_value
 
 
 def multiple_ints_with_conversion(first_value: Any, second_value: Any) -> int:
@@ -85,9 +81,8 @@ def multiple_ints_with_conversion(first_value: Any, second_value: Any) -> int:
         >>> "Not valid input data"
     """
     try:
-        first, second = int(first_value), int(second_value)
-        return first * second
-    except (TypeError or ValueError):
+        return int(first_value) * int(second_value)
+    except (TypeError, ValueError):
         raise ValueError
 
 
@@ -110,14 +105,11 @@ def is_word_in_text(word: str, text: str) -> bool:
     return word in text
 
 
-
 def some_loop_exercise() -> list:
     """
     Use loop to create list that contain int values from 0 to 12 except 6 and 7
     """
     return [number for number in range(13) if number != 6 if number != 7]
-
-
 
 
 def remove_from_list_all_negative_numbers(data: List[int]) -> list:
@@ -131,6 +123,7 @@ def remove_from_list_all_negative_numbers(data: List[int]) -> list:
     """
     return [number for number in data if number > 0]
 
+
 def alphabet() -> dict:
     """
     Create dict which keys are alphabetic characters. And values their number in alphabet
@@ -139,8 +132,8 @@ def alphabet() -> dict:
         alphabet()
         >>> {"a": 1, "b": 2 ...}
     """
-    import string
-    return dict(zip(range(1, 27), string.ascii_lowercase))
+    from string import ascii_lowercase
+    return dict(enumerate(ascii_lowercase, 1))
 
 
 def simple_sort(data: List[int]) -> List[list]:
