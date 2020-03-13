@@ -48,9 +48,11 @@ def multiple_ints(first_value: int, second_value: int) -> int:
     Returns:
         Product of elements
     """
-    if not isinstance(first_value, int) or not isinstance(second_value, int):
+    if isinstance(first_value, int) and isinstance(second_value, int) and \
+            not isinstance(first_value, bool) and not isinstance(second_value, bool):
+        return first_value * second_value
+    else:
         raise TypeError
-    return first_value * second_value
 
 
 def multiple_ints_with_conversion(first_value: Any, second_value: Any) -> int:
