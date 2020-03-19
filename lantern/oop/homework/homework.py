@@ -213,6 +213,11 @@ class Door:
         self.metal_price = new_price
 
 
+def null_value(width, height):
+    if width <= 0 or height <= 0:
+        raise ValueError("Value must be not 0")
+
+
 class House:
     """
     !!!! DON'T WRITE NEW METHODS TO THIS CLASS EXCEPT FOR THOSE LISTED BELOW !!!
@@ -237,8 +242,7 @@ class House:
     """
 
     def create_wall(self, width, height):
-        if width <= 0 or height <= 0:
-            raise ValueError("Value must be not 0")
+        null_value(width, height)
         if len(self.__walls) >= 4:
             raise ValueError("Our house can not have more than 4 walls")
         self.__walls.append(Wall(width, height))
@@ -253,8 +257,7 @@ class House:
     """
 
     def create_roof(self, width, height, roof_type):
-        if width <= 0 or height <= 0:
-            raise ValueError("Value must be not 0")
+        null_value(width, height)
         if self.__roof:
             raise ValueError('The house can not have two roofs')
         self.__roof = Roof(width, height, roof_type)
@@ -266,8 +269,7 @@ class House:
     """
 
     def create_window(self, width, height):
-        if width <= 0 or height <= 0:
-            raise ValueError("Value must be not 0")
+        null_value(width, height)
         self.__windows.append(Window(width, height))
 
     """
@@ -279,8 +281,7 @@ class House:
     """
 
     def create_door(self, width, height):
-        if width <= 0 or height <= 0:
-            raise ValueError("Value must be not 0")
+        null_value(width, height)
         if self.__door:
             raise ValueError("The house can not have two doors")
         self.__door = Door(width, height)
@@ -368,3 +369,4 @@ class House:
 
     def get_room_square(self):
         return self.get_walls_square() - self.get_door_square() - self.get_windows_square()
+
