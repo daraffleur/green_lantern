@@ -75,7 +75,7 @@ class Cat:
         * Implement get_saturation_level and return saturation_level
         if saturation_level eq 0 return text like this: "Your cat is died :("
         """
-        return self.saturation_level if self.saturation_level > 0 else Exception("Your cat is died :(")
+        return self.saturation_level if self.saturation_level > 0 else "Your cat is died :("
 
     def get_average_speed(self):
         """* Implement get_average_speed and return average_speed"""
@@ -319,4 +319,3 @@ class House:
         (from walls_square divide windows and door square)
         """
         return self.get_walls_square() - self.get_door_square() - self.get_windows_square()
-
