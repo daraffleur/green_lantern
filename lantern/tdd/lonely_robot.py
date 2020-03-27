@@ -37,7 +37,7 @@ class Robot:
 
     def check_robot_miss_asteroid(self):
         # check if robot miss asteroid while landing
-        if self.x > self.asteroid.x or self.y > self.asteroid.y:
+        if self.x > self.asteroid.x or self.x < 0 or self.y > self.asteroid.y or self.y < 0:
             raise MissAsteroidError("Robot missed asteroid while landing")
 
     def check_robot_falls_from_asteroid(self):
