@@ -75,33 +75,33 @@ class TestGoods(Initializer):
             return response
 
 
-def setup_goods_with_id(self):
-    with open('goods_with_id.json') as list_of_goods_with_id:
-        return json.load(list_of_goods_with_id)
+    def setup_goods_with_id(self):
+        with open('goods_with_id.json') as list_of_goods_with_id:
+            return json.load(list_of_goods_with_id)
 
 
-def test_goods_post(self):
-    response = self.setup_post_goods()
-    assert response.status_code == 201
-    assert response.json == {'Number of items created': 10}
+    def test_goods_post(self):
+        response = self.setup_post_goods()
+        assert response.status_code == 201
+        assert response.json == {'Number of items created': 10}
 
 
-def test_goods_get(self):
-    self.setup_post_goods()
-    response = self.client.get('/goods')
-    assert response.status_code == 200
-    assert response.json == self.setup_goods_with_id()
+    def test_goods_get(self):
+        self.setup_post_goods()
+        response = self.client.get('/goods')
+        assert response.status_code == 200
+        assert response.json == self.setup_goods_with_id()
 
 
-def test_update_goods(self):
-    self.setup_post_goods()
-    with open('goods_what_need_update.json') as list_of_goods_for_updating:
-        response = self.client.put(
-            '/goods',
-            json=json.load(list_of_goods_for_updating)
-        )
-    assert response.status_code == 200
-    assert response.json == {'Successfully updated': 0, 'errors': {'No such id in goods': [1, 2, 3, 18, 19, 20]}}
+    def test_update_goods(self):
+        self.setup_post_goods()
+        with open('goods_what_need_update.json') as list_of_goods_for_updating:
+            response = self.client.put(
+                '/goods',
+                json=json.load(list_of_goods_for_updating)
+            )
+        assert response.status_code == 200
+        assert response.json == {'Successfully updated': 3, 'errors': {'No such id in goods': [18, 19, 20]}}
 
 
 class TestStores(Initializer):
