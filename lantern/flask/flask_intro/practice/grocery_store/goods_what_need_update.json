@@ -1,0 +1,32 @@
+[
+  {
+    "name": "Chocolate bar",
+    "price": 4,
+    "id": 1
+  },
+  {
+    "name": "Jellybean",
+    "price": 7,
+    "id": 2
+  },
+  {
+    "name": "Sponge cake",
+    "price": 10,
+    "id": 3
+  },
+  {
+    "name": "Custard",
+    "price": 22,
+    "id": 18
+  },
+  {
+    "name": "Macaroon",
+    "price": 24,
+    "id": 19
+  },
+  {
+    "name": "Pudding",
+    "price": 25,
+    "id": 20
+  }
+]
