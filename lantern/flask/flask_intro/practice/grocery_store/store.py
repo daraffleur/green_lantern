@@ -82,9 +82,9 @@ def get_goods():
 def update_goods():
     db = inject.instance('DB')
     updated_goods, error = db.goods.update_goods(request.json)
-    if updated_goods:
-        return jsonify({'Successfully updated': updated_goods})
-    else:
+    if error:
         return jsonify({'Successfully updated': updated_goods, 'errors': {'No such id in goods': error}})
+    else:
+        return jsonify({'Successfully updated': updated_goods})
 
 

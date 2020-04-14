@@ -76,7 +76,7 @@ class FakeGoods:
         for good in goods:
             good['id'] = next(self._id_goods_counter)
             self._goods.append(good)
-        return len(self._goods)
+        return len(goods)
 
     def get_goods(self):
         return self._goods
