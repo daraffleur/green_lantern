@@ -1,5 +1,7 @@
 from typing import List
+
 import psycopg2
+
 
 
 def task_1_add_new_record_to_db(con) -> None:
@@ -20,6 +22,7 @@ def task_1_add_new_record_to_db(con) -> None:
     Returns: 92 records
 
     """
+
     cursor = con.cursor()
     cursor.execute("INSERT INTO Customers (Customername, Contactname, Address, City, Postalcode, Country) "
                    "VALUES (%s, %s, %s, %s, %s, %s)",
@@ -37,6 +40,7 @@ def task_2_list_all_customers(cur) -> list:
     Returns: 91 records
 
     """
+
     cur.execute("SELECT * FROM Customers")
     return cur.fetchall()
 
@@ -50,6 +54,7 @@ def task_3_list_customers_in_germany(cur) -> list:
 
     Returns: 11 records
     """
+
     cur.execute("SELECT * FROM Customers WHERE Country = 'Germany'")
     return cur.fetchall()
 
@@ -76,9 +81,11 @@ def task_5_delete_the_last_customer(con) -> None:
     Args:
         con: psycopg connection
     """
+    
     cursor = con.cursor()
     cursor.execute("DELETE FROM Customers WHERE Customerid = (SELECT MAX(Customerid) FROM Customers);")
     con.commit()
+
 
 
 def task_6_list_all_supplier_countries(cur) -> list:
@@ -105,6 +112,7 @@ def task_7_list_supplier_countries_in_desc_order(cur) -> list:
     Returns: 29 records in descending order
 
     """
+
     cur.execute("SELECT Country FROM Suppliers ORDER BY Country DESC")
     return cur.fetchall()
 
@@ -117,9 +125,9 @@ def task_8_count_customers_by_city(cur):
         cur: psycopg cursor
 
     Returns: 69 records in descending order
-
     """
-    cur.execute("SELECT COUNT(Customerid), City FROM Customers GROUP BY City ORDER BY City DESC")
+    
+    execute("SELECT COUNT(Customerid), City FROM Customers GROUP BY City ORDER BY City DESC")
     return cur.fetchall()
 
 
@@ -142,6 +150,7 @@ def task_10_list_first_10_customers(cur):
 
     Results: 10 records
     """
+    
     cur.execute("SELECT * FROM Customers LIMIT 10")
     return cur.fetchall()
 
@@ -155,6 +164,7 @@ def task_11_list_customers_starting_from_11th(cur):
 
     Returns: 11 records
     """
+    
     cur.execute("SELECT * FROM Customers OFFSET 11")
     return cur.fetchall()
 
