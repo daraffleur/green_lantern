@@ -8,7 +8,6 @@ from grocery_store.routes.auth import auth
 from grocery_store.routes.main import main
 from grocery_store.routes.list_of_goods import list_of_goods
 
-
 users = Blueprint("users", __name__)
 goods = Blueprint("goods", __name__)
 stores = Blueprint("stores", __name__)

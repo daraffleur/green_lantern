@@ -1,7 +1,6 @@
 from flask import Blueprint, render_template
 from grocery_store.models import Good
 
-
 list_of_goods = Blueprint('/list_of_goods', __name__)
 
 
