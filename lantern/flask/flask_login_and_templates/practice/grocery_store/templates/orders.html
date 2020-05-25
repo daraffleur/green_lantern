@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+{% block content %}
+    <table class="table">
+        <thead class="thead-inverse">
+        <tr>
+            <th>User</th>
+            <th>Date</th>
+            <th>Good</th>
+            <th>Price</th>
+        </tr>
+        </thead>
+        {%  for order in orders %}
+            <tr>
+                <td>{{ current_user.name }}</td>
+                <td>{{ order.created_timе }}</td>
+            </tr>
+        {% endfor %}
+        </table>
+{% endblock %}
