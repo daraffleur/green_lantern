@@ -1,6 +1,6 @@
 from flask import Blueprint, render_template
-from grocery_store.models import User, Order, OrderLine
 from flask_login import current_user
+from grocery_store.models import User
 
 list_of_orders = Blueprint('/orders', __name__)
 
@@ -8,8 +8,8 @@ list_of_orders = Blueprint('/orders', __name__)
 @list_of_orders.route('/orders', methods=["GET", "POST"])
 def user_orders():
     if current_user:
-        name = User.query.filter_by(name=current_user.name).first()
-        orders = [order for order in name.orders]
+        user = User.query.filter_by(user_id=current_user.user_id).first()
+        orders = user.orders
         for order in orders:
-            print(dir(order))
-        return render_template('orders.html', name=name, orders=orders)
+            print(order.created_time)
+        return render_template('orders.html', name=user, orders=orders)
