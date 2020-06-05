@@ -11,5 +11,5 @@ def user_orders():
         user = User.query.filter_by(user_id=current_user.user_id).first()
         orders = user.orders
         for order in orders:
-            print(order.created_time)
+            order.created_time
         return render_template('orders.html', name=user, orders=orders)
