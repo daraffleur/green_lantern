@@ -42,6 +42,7 @@ class TestSQLQueries(unittest.TestCase):
             cursor.execute(f"SELECT 1 FROM pg_catalog.pg_user WHERE usename = '{user}'")
             if cursor.fetchone():
                 cursor.execute(f"DROP ROLE {user}")
+            cursor.execute("SET lc_monetary TO 'en_US.UTF-8';")
             conn.commit()
 
 
@@ -54,6 +55,7 @@ class TestSQLQueries(unittest.TestCase):
             cursor.execute(f"CREATE ROLE {user} WITH LOGIN CREATEDB PASSWORD '{password}'")
             cursor.execute(f"CREATE DATABASE {database}")
             cursor.execute(f"GRANT ALL PRIVILEGES ON DATABASE {database} to {user};")
+            cursor.execute("SET lc_monetary TO 'en_US.UTF-8';")
             conn.commit()
 
     @classmethod
@@ -67,6 +69,7 @@ class TestSQLQueries(unittest.TestCase):
     def setUp(self) -> None:
         self.conn = psycopg2.connect(**TEST_DATABASE)
         with self.conn.cursor() as cursor:
+            cursor.execute("SET LOCAL lc_monetary = 'en_US.UTF-8';")
             init_tables(cursor)
             fill_tables(cursor)
         self.conn.commit()
@@ -242,3 +245,4 @@ class TestSQLQueries(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
+
