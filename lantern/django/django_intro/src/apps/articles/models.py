@@ -12,9 +12,9 @@ class Restaurant(models.Model):
     phone_number = models.CharField(max_length=10, blank=True, null=False, unique=True)
     opening_time = models.FloatField(blank=True, null=False)
     closing_time = models.FloatField(blank=True, null=False)
-    city = models.ForeignKey('City', db_column='city', blank=True, null=False, on_delete=models.DO_NOTHING)
-    country = models.ForeignKey('Country', db_column='country', blank=True, null=False, on_delete=models.DO_NOTHING)
-    menu = models.ForeignKey('MenuOfRestaurant', db_column='menu', blank=True, null=False, on_delete=models.DO_NOTHING)
+    city = models.ForeignKey('City', db_column='city', blank=True, null=False, on_delete=models.DO_NOTHING, db_constraint=False)
+    country = models.ForeignKey('Country', db_column='country', blank=True, null=False, on_delete=models.DO_NOTHING, db_constraint=False)
+    menu = models.ForeignKey('MenuOfRestaurant', db_column='menu', blank=True, null=False, on_delete=models.DO_NOTHING, db_constraint=False)
 
     def __str__(self):
         return 'Welcome to the %s' % self.name
@@ -37,7 +37,7 @@ class City(models.Model):
     id = models.AutoField(primary_key=True)
     name = models.CharField(max_length=30, blank=True, null=True)
     id_of_country = models.ForeignKey(Country, db_column='id_of_country', blank=True, null=False,
-                                      on_delete=models.DO_NOTHING)
+                                      on_delete=models.DO_NOTHING, db_constraint=False)
 
     class Meta:
         db_table = 'city'
@@ -55,7 +55,7 @@ class Employee(models.Model):
     career = models.CharField(max_length=50, blank=True, null=False)
     salary = models.FloatField(blank=True, null=False)
     restaurant = models.ForeignKey(Restaurant, db_column='restaurant', blank=True, null=False,
-                                   on_delete=models.DO_NOTHING)
+                                   on_delete=models.DO_NOTHING, db_constraint=False)
 
     class Meta:
         db_table = 'employee'
@@ -77,7 +77,7 @@ class Dish(models.Model):
 
 class Menu(models.Model):
     id = models.AutoField(primary_key=True)
-    id_of_dish = models.ForeignKey(Dish, db_column='id_of_dish', on_delete=models.DO_NOTHING)
+    id_of_dish = models.ForeignKey(Dish, db_column='id_of_dish', on_delete=models.DO_NOTHING, db_constraint=False)
 
     class Meta:
         db_table = 'menu'
@@ -85,8 +85,8 @@ class Menu(models.Model):
 
 
 class MenuOfRestaurant(models.Model):
-    id_of_menu = models.ForeignKey(Menu, db_column='id_of_menu', blank=True, null=False, on_delete=models.DO_NOTHING)
-    id_of_dish = models.ForeignKey(Dish, db_column='id_of_dish', blank=True, null=False, on_delete=models.DO_NOTHING)
+    id_of_menu = models.ForeignKey(Menu, db_column='id_of_menu', blank=True, null=False, on_delete=models.DO_NOTHING, db_constraint=False)
+    id_of_dish = models.ForeignKey(Dish, db_column='id_of_dish', blank=True, null=False, on_delete=models.DO_NOTHING, db_constraint=False)
 
     class Meta:
         db_table = 'menu_of_restaurant'
