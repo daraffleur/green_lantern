@@ -70,7 +70,7 @@ class Car(BaseDateAuditModel):
     )
     car_id = models.AutoField(primary_key=True)
     color_id = models.ForeignKey(to='Color', on_delete=models.SET_NULL, null=True, blank=False, related_name='colour')
-    dealer = models.ForeignKey(to='Dealer', on_delete=models.SET_NULL, null=True, blank=False, related_name='dealer')
+    dealer = models.ForeignKey(to='dealers.Dealer', on_delete=models.SET_NULL, null=True, blank=False, related_name='dealer')
     model_id = models.ForeignKey(to='CarModel', on_delete=models.SET_NULL, null=True, blank=False, related_name='model')
     engine_type = models.CharField(max_length=20)
     population_type = models.CharField(max_length=20)

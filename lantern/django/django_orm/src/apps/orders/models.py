@@ -17,7 +17,7 @@ class Order(BaseDateAuditModel):
     )
 
     order_id = models.AutoField(primary_key=True)
-    car_id = models.ForeignKey(to='Car', db_column='car', blank=True, null=False, on_delete=models.DO_NOTHING,
+    car_id = models.ForeignKey(to='cars.Car', db_column='car', blank=True, null=False, on_delete=models.DO_NOTHING,
                                db_constraint=False)
     status = models.CharField(max_length=50, choices=STATUS_CHOICES, default=STATUS_EXPECTED, blank=True)
     first_name = models.CharField(max_length=30, blank=True, null=False)

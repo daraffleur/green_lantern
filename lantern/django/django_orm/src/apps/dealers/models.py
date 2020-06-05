@@ -1,7 +1,7 @@
 from django.db import models
 from django.db.models import Index
 from django.utils.translation import gettext_lazy as _
-
+from django.contrib.auth.models import User
 
 # Create your models here.
 
@@ -43,7 +43,7 @@ class City(models.Model):
         return self.name
 
 
-class Dealer(models.Model):
+class Dealer(User):
     dealer_id = models.AutoField(primary_key=True)
     title = models.CharField(max_length=100, blank=True, null=False, unique=True)
     email = models.EmailField(max_length=100, blank=True, null=False, unique=True)
