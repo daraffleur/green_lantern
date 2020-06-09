@@ -22,3 +22,4 @@ class Article(models.Model):
         on_delete=models.SET_NULL,
         related_name='articles'
     )
+    image = models.ImageField(upload_to='articles', null=True, blank=True)
