@@ -17,7 +17,7 @@ class Restaurant(models.Model):
     menu = models.ForeignKey('MenuOfRestaurant', db_column='menu', blank=True, null=False, on_delete=models.DO_NOTHING, db_constraint=False)
 
     def __str__(self):
-        return 'Welcome to the %s' % self.name
+        return f'Welcome to the {self.name}'
 
     class Meta:
         db_table = 'restaurant'
