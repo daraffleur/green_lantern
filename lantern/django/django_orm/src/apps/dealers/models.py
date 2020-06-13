@@ -7,7 +7,6 @@ from django.contrib.auth.models import User
 
 
 class Country(models.Model):
-    country_id = models.AutoField(primary_key=True)
     name = models.CharField(max_length=50, blank=True, null=False, unique=True)
     code = models.CharField(max_length=10, blank=True, null=False, unique=True)
 
@@ -25,7 +24,6 @@ class Country(models.Model):
 
 
 class City(models.Model):
-    city_id = models.AutoField(primary_key=True)
     name = models.CharField(max_length=50, blank=True, null=False)
     country_id = models.ForeignKey('Country', db_column='country', blank=True, null=False, on_delete=models.DO_NOTHING,
                                    db_constraint=False)
@@ -44,7 +42,6 @@ class City(models.Model):
 
 
 class Dealer(User):
-    dealer_id = models.AutoField(primary_key=True)
     title = models.CharField(max_length=100, blank=True, null=False, unique=True)
     email = models.EmailField(max_length=100, blank=True, null=False, unique=True)
     city_id = models.ForeignKey('City', db_column='city', blank=True, null=False, on_delete=models.DO_NOTHING,
