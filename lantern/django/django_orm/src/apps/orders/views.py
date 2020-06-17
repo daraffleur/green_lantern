@@ -1,10 +1,8 @@
-
+from apps.orders.forms import OrderModelForm
+from apps.orders.models import Order
 from django.shortcuts import render
 from django.urls import reverse_lazy
 from django.views.generic import FormView
-
-from apps.orders.forms import OrderModelForm
-from apps.orders.models import Order
 
 
 class OrderView(FormView):

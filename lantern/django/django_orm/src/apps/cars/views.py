@@ -1,7 +1,5 @@
-
-from django.views.generic import ListView, DetailView
-
 from apps.cars.models import Car
+from django.views.generic import ListView, DetailView
 
 
 class CarListView(ListView):

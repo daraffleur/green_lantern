@@ -1,6 +1,8 @@
 from django.db import models
 from django.db.models import Index
 from django.utils.translation import gettext_lazy as _
+
+
 # from phone_field import PhoneField
 
 
@@ -30,7 +32,7 @@ class Order(models.Model):
     first_name = models.CharField(max_length=50)
     last_name = models.CharField(max_length=50)
     email = models.EmailField(max_length=100)
-    # phone = PhoneField(blank=True, help_text="Contact phone number")
+    phone = PhoneField(blank=True, help_text="Contact phone number")
     message = models.CharField(max_length=255)
 
     class Meta:

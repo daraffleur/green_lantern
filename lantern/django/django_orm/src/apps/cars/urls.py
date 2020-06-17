@@ -1,7 +1,5 @@
-
-from django.urls import path
-
 from apps.cars.views import CarListView, CarAdditionalInfoView
+from django.urls import path
 
 app_name = 'list_of_cars'
 

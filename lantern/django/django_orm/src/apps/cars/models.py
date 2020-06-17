@@ -1,12 +1,9 @@
-
+from apps.cars.managers import CarManager, CarQuerySet
+from common.models import BaseDateAuditModel
 from datetime import date
-
 from django.db import models
 from django.db.models import Index
 from django.utils.translation import gettext_lazy as _
-
-from apps.cars.managers import CarManager, CarQuerySet
-from common.models import BaseDateAuditModel
 
 
 class Color(models.Model):
