@@ -1,0 +1,28 @@
+
+{% extends "base.html" %}
+
+{% block content %}
+    <table class="table table-hover table-striped">
+        <thead class="thead-inverse">
+        <tr>
+            <th>Name</th>
+            <th>City</th>
+            <th>Country</th>
+            <th>Email</th>
+            <th>Cars</th>
+        </tr>
+        </thead>
+        {% for dealer in object_list %}
+            <tr>
+                <td>{{ dealer.title }}</td>
+                <td>{{ dealer.city }}</td>
+                <td>{{ dealer.city.country }}</td>
+                <td>{{ dealer.email }}</td>
+                <td>
+                    <a href="{% url 'dealer_car' dealer.id %}" class="navbar-item" style="color: red">Cars</a>
+                </td>
+            </tr>
+        {% endfor %}
+    </table>
+
+{% endblock %}
