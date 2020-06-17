@@ -16,6 +16,7 @@ Including another URLconf
 from django.conf import settings
 from django.conf.urls.static import static
 from django.contrib import admin
+from django.contrib.auth.decorators import login_required
 from django.urls import path
 from django.views.generic import TemplateView
 
@@ -24,6 +25,8 @@ from apps.dealers.views import DealerListView, DealerCarListView
 from apps.newsletters.views import NewsLetterView
 from apps.orders.views import OrderView
 from common.views import LoginView, logout_view, main_view
+
+from lantern.django.django_orm.src.apps.photos.views import UploadPhotoView
 
 urlpatterns = [
     path("admin/", admin.site.urls),
@@ -38,6 +41,8 @@ urlpatterns = [
     path("dealers/", DealerListView.as_view(template_name='dealers.html'), name='dealers'),
     path("dealers/<int:id>/", DealerCarListView.as_view(template_name='dealer_car.html'), name='dealer_car'),
     path("order/", OrderView.as_view(), name="order"),
+    path('upload_photo/', login_required(UploadPhotoView.as_view()), name='upload_photo'),
+
 ]
 
 if settings.DEBUG:
