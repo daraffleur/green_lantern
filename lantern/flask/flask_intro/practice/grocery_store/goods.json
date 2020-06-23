@@ -1,0 +1,42 @@
+[
+  {
+    "name": "Chocolate bar",
+    "price": 10
+  },
+  {
+    "name": "Jellybean",
+    "price": 12
+  },
+  {
+    "name": "Sponge cake",
+    "price": 14
+  },
+  {
+    "name": "Cupcake",
+    "price": 16
+  },
+  {
+    "name": "Croissant",
+    "price": 17
+  },
+  {
+    "name": "Doughnut",
+    "price": 18
+  },
+  {
+    "name": "Brownie",
+    "price": 20
+  },
+  {
+    "name": "Custard",
+    "price": 22
+  },
+  {
+    "name": "Macaroon",
+    "price": 24
+  },
+  {
+    "name": "Pudding",
+    "price": 25
+  }
+]
