@@ -1,10 +1,12 @@
+from uuid import uuid4
+
 import factory
 
 from apps.cars.models import Car, CarBrand, CarModel
 
 
 class CarBrandFactory(factory.DjangoModelFactory):
-    # logo = factory.django.ImageField(color='blue')
+    logo = factory.django.ImageField(color='blue')
 
     class Meta:
         model = CarBrand
@@ -12,6 +14,7 @@ class CarBrandFactory(factory.DjangoModelFactory):
 
 class CarModelFactory(factory.DjangoModelFactory):
     brand = factory.SubFactory(CarBrandFactory)
+    name = factory.LazyFunction(lambda: uuid4().hex)
 
     class Meta:
         model = CarModel

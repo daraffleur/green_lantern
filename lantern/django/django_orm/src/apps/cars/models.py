@@ -2,17 +2,18 @@ from django.db import models
 from django.db.models import Index, UniqueConstraint
 from django.utils.translation import gettext_lazy as _
 
+from apps.cars.managers import CarManager, CarQuerySet
+from common.models import BaseDateAuditModel
+
 
 class Color(models.Model):
-    name = models.CharField(max_length=32)
+    name = models.CharField(max_length=32, unique=True)
 
     class Meta:
         indexes = [
             Index(fields=('name',))
         ]
-        constraints = [
-            UniqueConstraint(fields=('name',), name='unique-color')
-        ]
+
         verbose_name = _('Color')
         verbose_name_plural = _('Colors')
 
@@ -21,16 +22,13 @@ class Color(models.Model):
 
 
 class CarBrand(models.Model):
-    name = models.CharField(max_length=32)
+    name = models.CharField(max_length=32, unique=True)
     logo = models.ImageField(null=True, blank=False)
 
     class Meta:
         ordering = ('name',)
         indexes = [
             Index(fields=('name',))
-        ]
-        constraints = [
-            UniqueConstraint(fields=('name',), name='unique-car-brand')
         ]
         verbose_name = _('Car brand')
         verbose_name_plural = _('Car brands')
@@ -48,9 +46,6 @@ class CarModel(models.Model):
         indexes = [
             Index(fields=('name',)),
         ]
-        constraints = [
-            UniqueConstraint(fields=('name', 'brand'), name='unique-car-model')
-        ]
         verbose_name = _('Car model')
         verbose_name_plural = _('Car models')
 
@@ -58,7 +53,7 @@ class CarModel(models.Model):
         return self.name
 
 
-class Car(models.Model):
+class Car(BaseDateAuditModel):
     STATUS_PENDING = 'pending'
     STATUS_PUBLISHED = 'published'
     STATUS_SOLD = 'sold'
@@ -71,8 +66,10 @@ class Car(models.Model):
         (STATUS_ARCHIVED, "Archived"),
     )
 
+    objects = CarManager.from_queryset(CarQuerySet)()
     views = models.PositiveIntegerField(default=0, editable=False)
     slug = models.SlugField(max_length=75)
+    number = models.CharField(max_length=16, unique=True)
     status = models.CharField(max_length=15, choices=STATUS_CHOICES, default=STATUS_PENDING, blank=True)
     # dealer = models.ForeignKey('Dealer', on_delete=models.CASCADE, related_name='cars')
 
@@ -82,12 +79,26 @@ class Car(models.Model):
     # other fields ...
     #
 
+    def save(self, *args, **kwargs):
+        order_number_start = 7600000
+        if not self.pk:
+            super().save(*args, **kwargs)
+            self.number = f"LK{order_number_start + self.pk}"
+            self.save()
+        else:
+            super().save(*args, **kwargs)
+
+    def delete(self, using=None, keep_parents=False):
+        self.status = self.STATUS_ARCHIVED
+        self.save()
+
     @property
     def title(self):
         return f'{self.model.brand} {self.extra_title or ""}'  # do not show None
 
     def __str__(self):
         return self.title
+
 
     class Meta:
         verbose_name = _('Car')
