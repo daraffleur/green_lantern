@@ -27,6 +27,12 @@ class CarViewSet(ModelViewSet):
         serializer = self.get_serializer(queryset, many=True)
         return Response(serializer.data)
 
+    @action(detail=False, methods=('get',))
+    def user_sratictics_view(self, request):
+        user_count = Car.objects.filter(dealer=self.request.user).count()
+        content = {'user_count': user_count}
+        return Response(content)
+
 
 class CarListView(ListAPIView):
     queryset = Car.objects.all()

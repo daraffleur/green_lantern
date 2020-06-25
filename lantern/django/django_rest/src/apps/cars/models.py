@@ -1,12 +1,10 @@
-
 from datetime import date
-
-from django.db import models
-from django.db.models import Index
-from django.utils.translation import gettext_lazy as _
 
 from apps.cars.managers import CarManager, CarQuerySet
 from common.models import BaseDateAuditModel
+from django.db import models
+from django.db.models import Index
+from django.utils.translation import gettext_lazy as _
 
 
 class Color(models.Model):
@@ -113,6 +111,7 @@ class Car(BaseDateAuditModel):
     objects = CarManager.from_queryset(CarQuerySet)()
     views = models.PositiveIntegerField(default=0, editable=False)
     extra_title = models.CharField(max_length=255, null=True, blank=True, verbose_name=_("Title second part"))
+    statistic_view = models.IntegerField(null=True, blank=True)
 
     def save(self, *args, **kwargs):
         order_number_start = 7600000
