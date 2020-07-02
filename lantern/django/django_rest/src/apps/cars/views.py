@@ -18,7 +18,9 @@ class CarViewSet(ModelViewSet):
     @action(detail=False, methods=('get',))
     def public(self, request):
         queryset = self.filter_queryset(Car.objects.all())
-
+        for car_object in queryset:
+            car_object.views = car_object.views + 1
+            car_object.save(update_fields=('statistic_view', ))
         page = self.paginate_queryset(queryset)
         if page is not None:
             serializer = self.get_queryset(page, many=True)
@@ -27,17 +29,26 @@ class CarViewSet(ModelViewSet):
         serializer = self.get_serializer(queryset, many=True)
         return Response(serializer.data)
 
-    @action(detail=False, methods=('get',))
-    def user_sratictics_view(self, request):
-        user_count = Car.objects.filter(dealer=self.request.user).count()
-        content = {'user_count': user_count}
-        return Response(content)
+
+
+    def public_by_id(self, request, **kwargs):
+        queryset = get_object_or_404(Car.objects.filter(pk=self.kwargs['pk']))
+        queryset.views = queryset.views + 1
+        queryset.save(update_fields=('statistic_view', ))
+        serializer = self.get_serializer(queryset)
+        return Response(serializer.data)
 
 
 class CarListView(ListAPIView):
     queryset = Car.objects.all()
     serializer_class = CarSerializer
     permission_classes = (permissions.IsAuthenticated,)
+
+    @action(detail=False, methods=('get',))
+    def statistics(self, request):
+        cars = Car.objects.filter(dealer=self.request.user).count()
+        content = {'cars': cars}
+        return Response(content)
 
     def get_queryset(self):
         return Car.objects.filter(dealer=self.request.user.id)
