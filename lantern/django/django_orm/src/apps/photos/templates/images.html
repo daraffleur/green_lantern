@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+
+{% block meta_title %}Upload Photo{% endblock meta_title %}
+{% block title %}Upload Photo{% endblock title %}
+{% block content %}
+    Upload or Update Car Photo
+    {% if user.is_authenticated %}
+        <form action="{% url 'upload_photo' %}" method="post">
+
+            <form method="post" action="{% url 'upload_photo' %}" enctype='multipart/form-data'>
+                {% csrf_token %}
+                {{ form }}
+                <div>
+                    <input type="submit" value="Send" name='add_button'/>
+                    <button type='submit' name='cancel_button'>Cancel</button>
+                </div>
+            </form>
+        </form>
+    {% endif %}
+
+{% endblock content %}

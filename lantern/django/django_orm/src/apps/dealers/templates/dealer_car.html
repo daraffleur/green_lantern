@@ -1,0 +1,35 @@
+{% extends "dealers.html" %}
+
+{% block content %}
+    <table class="table table-hover table-striped">
+        <thead class="thead-inverse">
+        <tr>
+            <th>Photo</th>
+            <th>Brand</th>
+            <th>Model</th>
+            <th>Colour</th>
+            <th>Price</th>
+            <th>Status</th>
+            <th>More</th>
+        </tr>
+        </thead>
+        {% for car in object_list %}
+            <tr>
+                <td><img height="30" width="30" src="{{ car.model.brand.logo }}"></td>
+                <td>{{ car.model.brand }}</td>
+                <td>{{ car.model }}</td>
+                <td>{{ car.color }}</td>
+                <td>{{ car.price }}</td>
+                <td>{{ car.status }}</td>
+                <td>
+                    <a href="{% url 'info' car.id %}" class="navbar-item" style="color: red">More</a>
+
+                    <span class=”caret”></span>
+                    </button>
+                </td>
+            </tr>
+        {% endfor %}
+    </table>
+
+{% endblock %}
+

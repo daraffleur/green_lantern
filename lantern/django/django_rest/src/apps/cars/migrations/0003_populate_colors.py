@@ -19,7 +19,7 @@ def populate_colors(apps, schema_editor):
 
 class Migration(migrations.Migration):
     dependencies = [
-        ('cars', '0001_initial'),
+        ('cars', '0002_auto_20200612_1157'),
     ]
 
     operations = [
