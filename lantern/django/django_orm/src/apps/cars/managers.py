@@ -1,9 +1,6 @@
 from django.db import models
 
 
-# from django.db.models.functions import Concat
-
-
 class CarQuerySet(models.QuerySet):
     def pending(self):
         return self.filter(status='pending')
@@ -23,3 +20,4 @@ class CarManager(models.Manager):
         return (
             super().get_queryset().select_related("model", "model__brand")
         )
+

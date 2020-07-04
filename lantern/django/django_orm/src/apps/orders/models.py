@@ -3,9 +3,6 @@ from django.db.models import Index
 from django.utils.translation import gettext_lazy as _
 
 
-# from phone_field import PhoneField
-
-
 class Order(models.Model):
     STATUS_RESERVED = "reserved"
     STATUS_PAID = "paid"

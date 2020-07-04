@@ -7,6 +7,7 @@ from django.utils.translation import gettext_lazy as _
 
 
 class Color(models.Model):
+    color_id = models.AutoField(primary_key=True)
     name = models.CharField(max_length=32, unique=True)
 
     class Meta:
@@ -20,6 +21,7 @@ class Color(models.Model):
 
 
 class CarBrand(models.Model):
+    brand_id = models.AutoField(primary_key=True)
     name = models.CharField(max_length=32, unique=True)
     logo = models.ImageField(null=True, blank=False)
 
@@ -63,6 +65,23 @@ class Car(BaseDateAuditModel):
         (STATUS_SOLD, "Sold"),
         (STATUS_ARCHIVED, "Archived"),
     )
+    car_id = models.AutoField(primary_key=True)
+    color_id = models.ForeignKey(to='Color', on_delete=models.SET_NULL, null=True, blank=False, related_name='colour')
+    dealer = models.ForeignKey(to='dealers.Dealer', on_delete=models.SET_NULL, null=True, blank=False, related_name='dealer')
+    model_id = models.ForeignKey(to='CarModel', on_delete=models.SET_NULL, null=True, blank=False, related_name='model')
+    engine_type = models.CharField(max_length=20)
+    population_type = models.CharField(max_length=20)
+    price = models.FloatField(blank=True, null=False)
+    fuel_type = models.CharField(max_length=20)
+    status = models.CharField(max_length=15, choices=STATUS_CHOICES, default=STATUS_PENDING, blank=True)
+    doors = models.ImageField(blank=True, null=False)
+    capacity = models.FloatField(blank=True, null=False)
+    gear_case = models.CharField(max_length=20, blank=True, null=False)
+    number = models.FloatField(blank=True, null=False)
+    slug = models.SlugField(max_length=75)
+    sitting_place = models.ImageField(blank=True, null=False)
+    first_registration_date = models.DateTimeField(auto_now=True)
+    engine_power = models.FloatField(blank=True, null=False)
 
     ONE_DOOR = 1
     TWO_DOORS = 2
